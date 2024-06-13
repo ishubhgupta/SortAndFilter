@@ -170,6 +170,24 @@ th, td {
     text-align: left;
 }
 
+/* Existing CSS remains unchanged */
+
+/* New CSS for difficulty levels */
+
+
+.difficulty.easy {
+    color: #00ffe1;
+}
+
+.difficulty.medium {
+    color: #ffa116; 
+}
+
+.difficulty.hard {
+    color: #ff375a; 
+}
+
+
 th button {
     background: none;
     border: none;

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let rateSortOrder = 1;   // 1 for ascending, -1 for descending
     let numberSortOrder = 1; // 1 for ascending, -1 for descending
 
-    // CSV data
+    // CSV data (assuming 'data.csv' contains your problem data)
     Papa.parse('data.csv', {
         download: true,
         header: true,
@@ -27,25 +27,40 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Function to display problems
+    // Function to display problems in the table
     function displayProblems(data) {
         tableBody.innerHTML = '';
         data.forEach(problem => {
             const row = document.createElement('tr');
-            // Construct the URL based on the question name
             const leetCodeURL = `https://leetcode.com/problems/${problem['Question Name'].toLowerCase().replace(/ /g, '-')}/description/`;
+
+            // Determine difficulty class for styling
+            let difficultyClass = '';
+            switch (problem['Difficulty Level'].toLowerCase()) {
+                case 'easy':
+                    difficultyClass = 'easy';
+                    break;
+                case 'medium':
+                    difficultyClass = 'medium';
+                    break;
+                case 'hard':
+                    difficultyClass = 'hard';
+                    break;
+                default:
+                    break;
+            }
 
             row.innerHTML = `
                 <td>${problem['Question Number']}</td>
                 <td><a href="${leetCodeURL}" target="_blank">${problem['Question Name']}</a></td>
-                <td>${problem['Difficulty Level']}</td>
+                <td class="difficulty ${difficultyClass}">${problem['Difficulty Level']}</td>
                 <td>${problem['Acceptance Rate']}</td>
             `;
             tableBody.appendChild(row);
         });
     }
 
-    // Function to filter problems
+    // Function to filter problems based on company and difficulty
     function filterProblems() {
         filteredProblems = problems;
 
@@ -60,30 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         displayProblems(filteredProblems);
     }
 
-    // Function to add difficulty tag
-    function addDifficultyTag(difficulty) {
-        const tag = document.createElement('div');
-        tag.classList.add('difficulty-tag', difficulty.toLowerCase());
-        tag.textContent = difficulty;
-
-        const closeButton = document.createElement('span');
-        closeButton.classList.add('close-btn');
-        closeButton.textContent = '✖';
-        closeButton.addEventListener('click', function () {
-            selectedDifficulties.delete(difficulty);
-            tag.remove();
-            filterProblems();
-        });
-
-        tag.appendChild(closeButton);
-        selectedDifficultiesContainer.appendChild(tag);
-    }
-
-    // Function to remove all difficulty tags
-    function removeAllDifficultyTags() {
-        selectedDifficultiesContainer.innerHTML = '';
-    }
-
+    // Event listeners for company filters
     companyButtons.forEach(button => {
         button.addEventListener('click', function () {
             companyButtons.forEach(btn => btn.classList.remove('active'));
@@ -93,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Event listener for difficulty dropdown
     difficultyDropdown.addEventListener('click', function (event) {
         const selectedValue = event.target.getAttribute('data-value');
         if (selectedValue) {
@@ -126,26 +119,28 @@ document.addEventListener('DOMContentLoaded', function () {
         filteredProblems.sort((a, b) => numberSortOrder * (parseInt(a['Question Number']) - parseInt(b['Question Number'])));
         displayProblems(filteredProblems);
     });
-});
 
+    // Function to add difficulty tag in the UI (if needed)
+    function addDifficultyTag(difficulty) {
+        const tag = document.createElement('div');
+        tag.classList.add('difficulty-tag', difficulty.toLowerCase());
+        tag.textContent = difficulty;
 
-document.addEventListener('DOMContentLoaded', function () {
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-
-    // Show the button when the user scrolls down 20px from the top
-    window.addEventListener('scroll', function () {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            scrollToTopBtn.style.display = 'block';
-        } else {
-            scrollToTopBtn.style.display = 'none';
-        }
-    });
-
-    // Scroll to the top when the user clicks the button
-    scrollToTopBtn.addEventListener('click', function () {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+        const closeButton = document.createElement('span');
+        closeButton.classList.add('close-btn');
+        closeButton.textContent = '✖';
+        closeButton.addEventListener('click', function () {
+            selectedDifficulties.delete(difficulty);
+            tag.remove();
+            filterProblems();
         });
-    });
+
+        tag.appendChild(closeButton);
+        selectedDifficultiesContainer.appendChild(tag);
+    }
+
+    // Function to remove all difficulty tags
+    function removeAllDifficultyTags() {
+        selectedDifficultiesContainer.innerHTML = '';
+    }
 });
