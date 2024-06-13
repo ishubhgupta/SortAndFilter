@@ -214,3 +214,43 @@ td a {
 td a:hover {
     color: #4e8cff; /* Change color on hover */
 }
+
+
+.footer {
+    background-color: #282828;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+}
+.footer-content .made-by{
+    color: #c2c2c2;
+}
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-link {
+    display: inline-block;
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: #575757;
+}
+
+.social-link i {
+    font-size: 40px;
+    color: white; /* Ensure icon color is white */
+}
