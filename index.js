@@ -1,11 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     const tableBody = document.querySelector('#problemTable tbody');
-    const companyFilter = document.getElementById('company');
-    const difficultyFilter = document.getElementById('difficulty');
+    const companyButtons = document.querySelectorAll('.company-filter');
+    const difficultyDropdown = document.getElementById('difficultyDropdown');
     const sortRateButton = document.getElementById('sortRate');
     const sortAlphaButton = document.getElementById('sortAlpha');
+    const sortNumberButton = document.getElementById('sortNumber');
+    const selectedDifficultiesContainer = document.getElementById('selected-difficulties');
 
     let problems = [];
+    let filteredProblems = [];
+    let selectedCompany = 'All';
+    let selectedDifficulties = new Set();
+    let alphaSortOrder = 1;  // 1 for ascending, -1 for descending
+    let rateSortOrder = 1;   // 1 for ascending, -1 for descending
+    let numberSortOrder = 1; // 1 for ascending, -1 for descending
 
     // CSV data
     Papa.parse('data.csv', {
@@ -13,11 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
         header: true,
         complete: function (results) {
             problems = results.data;
-            displayProblems(problems);
+            problems.sort((a, b) => parseInt(a['Question Number']) - parseInt(b['Question Number']));
+            filteredProblems = [...problems];  // Initialize with all problems
+            displayProblems(filteredProblems);
         }
     });
 
-    // print
+    // Function to display problems
     function displayProblems(data) {
         tableBody.innerHTML = '';
         data.forEach(problem => {
@@ -32,30 +42,85 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // filters
+    // Function to filter problems
     function filterProblems() {
-        let filteredProblems = problems;
-        if (companyFilter.value !== 'All') {
-            filteredProblems = filteredProblems.filter(problem => problem[companyFilter.value] === 'Yes');
+        filteredProblems = problems;
+
+        if (selectedCompany !== 'All') {
+            filteredProblems = filteredProblems.filter(problem => problem[selectedCompany] === 'Yes');
         }
-        if (difficultyFilter.value !== 'All') {
-            filteredProblems = filteredProblems.filter(problem => problem['Difficulty Level'] === difficultyFilter.value);
+
+        if (selectedDifficulties.size > 0) {
+            filteredProblems = filteredProblems.filter(problem => selectedDifficulties.has(problem['Difficulty Level']));
         }
+
         displayProblems(filteredProblems);
     }
 
-    companyFilter.addEventListener('change', filterProblems);
-    difficultyFilter.addEventListener('change', filterProblems);
+    // Function to add difficulty tag
+    function addDifficultyTag(difficulty) {
+        const tag = document.createElement('div');
+        tag.classList.add('difficulty-tag', difficulty.toLowerCase());
+        tag.textContent = difficulty;
 
-    // acceptance rate sorting
-    sortRateButton.addEventListener('click', function () {
-        const sortedProblems = [...problems].sort((a, b) => parseFloat(a['Acceptance Rate']) - parseFloat(b['Acceptance Rate']));
-        displayProblems(sortedProblems);
+        const closeButton = document.createElement('span');
+        closeButton.classList.add('close-btn');
+        closeButton.textContent = '✖';
+        closeButton.addEventListener('click', function () {
+            selectedDifficulties.delete(difficulty);
+            tag.remove();
+            filterProblems();
+        });
+
+        tag.appendChild(closeButton);
+        selectedDifficultiesContainer.appendChild(tag);
+    }
+
+    // Function to remove all difficulty tags
+    function removeAllDifficultyTags() {
+        selectedDifficultiesContainer.innerHTML = '';
+    }
+
+    companyButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            companyButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            selectedCompany = this.dataset.company;
+            filterProblems();
+        });
     });
 
-    // question sorting alphabeticaly
+    difficultyDropdown.addEventListener('click', function (event) {
+        const selectedValue = event.target.getAttribute('data-value');
+        if (selectedValue) {
+            selectedDifficulties.clear();
+            removeAllDifficultyTags();
+            if (selectedValue !== 'All') {
+                selectedDifficulties.add(selectedValue);
+                addDifficultyTag(selectedValue);
+            }
+            filterProblems();
+        }
+    });
+
+    // Sort by acceptance rate
+    sortRateButton.addEventListener('click', function () {
+        rateSortOrder *= -1;
+        filteredProblems.sort((a, b) => rateSortOrder * (parseFloat(a['Acceptance Rate']) - parseFloat(b['Acceptance Rate'])));
+        displayProblems(filteredProblems);
+    });
+
+    // Sort alphabetically
     sortAlphaButton.addEventListener('click', function () {
-        const sortedProblems = [...problems].sort((a, b) => a['Question Name'].localeCompare(b['Question Name']));
-        displayProblems(sortedProblems);
+        alphaSortOrder *= -1;
+        filteredProblems.sort((a, b) => alphaSortOrder * a['Question Name'].localeCompare(b['Question Name']));
+        displayProblems(filteredProblems);
+    });
+
+    // Sort by question number
+    sortNumberButton.addEventListener('click', function () {
+        numberSortOrder *= -1;
+        filteredProblems.sort((a, b) => numberSortOrder * (parseInt(a['Question Number']) - parseInt(b['Question Number'])));
+        displayProblems(filteredProblems);
     });
 });

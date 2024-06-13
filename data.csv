@@ -1,5 +1,5 @@
 Question Number,Question Name,Difficulty Level,Acceptance Rate,Adobe,Flipkart,Google,Microsoft,PayPal
-1,Two Sum,Easy,43.50%,Yes,Yes,No,No,Yes
+1,Two Sum,Easy,43.50%,Yes,Yes,Yes,No,Yes
 2,Add Two Numbers,Medium,31.00%,Yes,Yes,No,No,No
 3,Longest Substring Without Repeating Characters,Medium,28.20%,Yes,Yes,No,No,Yes
 4,Median of Two Sorted Arrays,Hard,26.10%,Yes,No,No,No,No

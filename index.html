@@ -5,44 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Problem List</title>
     <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
 </head>
 <body>
-    <h1>Problem List</h1>
-    <div>
-        <label for="company">Filter by Company:</label>
-        <select id="company">
-            <option value="All">All</option>
-            <option value="Adobe">Adobe</option>
-            <option value="Flipkart">Flipkart</option>
-            <option value="Google">Google</option>
-            <option value="Microsoft">Microsoft</option>
-            <option value="PayPal">PayPal</option>
-        </select>
-        <label for="difficulty">Filter by Difficulty:</label>
-        <select id="difficulty">
-            <option value="All">All</option>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-        </select>
-        <button id="sortRate">Sort by Acceptance Rate</button>
-        <button id="sortAlpha">Sort Alphabetically</button>
+    <div class="header">
+        <h1>Problem List</h1>
+        <div class="filters">
+            <div id="selected-difficulties" class="selected-difficulties"></div>
+            <div class="dropdown">
+                <button class="dropbtn" id="difficultyDropdownBtn">Difficulty</button>
+                <div class="dropdown-content" id="difficultyDropdown">
+                    <a href="#" data-value="Easy" class="easy">Easy</a>
+                    <a href="#" data-value="Medium" class="medium">Medium</a>
+                    <a href="#" data-value="Hard" class="hard">Hard</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <table id="problemTable">
-        <thead>
-            <tr>
-                <th>Question Number</th>
-                <th>Question Name</th>
-                <th>Difficulty Level</th>
-                <th>Acceptance Rate</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data will be inserted here dynamically -->
-        </tbody>
-    </table>
+    <div class="main-content">
+        <div class="sidebar">
+            <h2>Companies</h2>
+            <div class="company-list">
+                <button class="company-filter active" data-company="All">All</button>
+                <button class="company-filter" data-company="Adobe">Adobe</button>
+                <button class="company-filter" data-company="Flipkart">Flipkart</button>
+                <button class="company-filter" data-company="Google">Google</button>
+                <button class="company-filter" data-company="Microsoft">Microsoft</button>
+                <button class="company-filter" data-company="PayPal">PayPal</button>
+            </div>
+        </div>
+        <div class="content">
+            <table id="problemTable">
+                <thead>
+                    <tr>
+                        <th><button id="sortNumber">Question Number</button></th>
+                        <th><button id="sortAlpha">Title</button></th>
+                        <th>Difficulty</th>
+                        <th><button id="sortRate">Acceptance</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </body>
 </html>
