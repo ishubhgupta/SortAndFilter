@@ -32,9 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
         tableBody.innerHTML = '';
         data.forEach(problem => {
             const row = document.createElement('tr');
+            // Construct the URL based on the question name
+            const leetCodeURL = `https://leetcode.com/problems/${problem['Question Name'].toLowerCase().replace(/ /g, '-')}/description/`;
+
             row.innerHTML = `
                 <td>${problem['Question Number']}</td>
-                <td>${problem['Question Name']}</td>
+                <td><a href="${leetCodeURL}" target="_blank">${problem['Question Name']}</a></td>
                 <td>${problem['Difficulty Level']}</td>
                 <td>${problem['Acceptance Rate']}</td>
             `;

@@ -1,3 +1,4 @@
+/* Existing CSS */
 * {
     padding: 0;
     margin: 0;
@@ -202,5 +203,14 @@ h1 {
 
 #scrollToTopBtn:hover {
     background-color: #f1f1f1df;
-    
+}
+
+/* New CSS for table links */
+td a {
+    color: white;
+    text-decoration: none; /* Remove underline */
+}
+
+td a:hover {
+    color: #4e8cff; /* Change color on hover */
 }
