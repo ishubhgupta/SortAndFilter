@@ -1,0 +1,51 @@
+Question Number,Question Name,Difficulty Level,Acceptance Rate,Adobe,Flipkart,Google,Microsoft,PayPal
+1,Two Sum,Easy,43.50%,Yes,Yes,No,No,Yes
+2,Add Two Numbers,Medium,31.00%,Yes,Yes,No,No,No
+3,Longest Substring Without Repeating Characters,Medium,28.20%,Yes,Yes,No,No,Yes
+4,Median of Two Sorted Arrays,Hard,26.10%,Yes,No,No,No,No
+5,Longest Palindromic Substring,Medium,27.10%,Yes,No,No,No,Yes
+6,ZigZag Conversion,Medium,31.40%,No,No,No,No,Yes
+7,Reverse Integer,Easy,25.20%,Yes,No,No,No,No
+11,Container With Most Water,Medium,43.80%,Yes,No,No,No,No
+13,Roman to Integer,Easy,52.10%,Yes,No,No,No,No
+15,3Sum,Medium,23.80%,Yes,No,No,No,Yes
+18,4Sum,Medium,30.20%,Yes,No,No,No,No
+20,Valid Parentheses,Easy,36.30%,Yes,No,No,No,Yes
+21,Merge Two Sorted Lists,Easy,46.80%,No,No,No,No,Yes
+23,Merge k Sorted Lists,Hard,34.00%,Yes,No,No,No,No
+26,Remove Duplicates from Sorted Array,Easy,40.30%,No,No,No,Yes,No
+30,Substring with Concatenation of All Words,Hard,23.40%,Yes,No,No,No,No
+33,Search in Rotated Sorted Array,Medium,32.80%,No,No,No,No,Yes
+35,Search Insert Position,Easy,40.70%,Yes,No,No,No,No
+42,Trapping Rain Water,Hard,42.70%,Yes,No,No,No,No
+46,Permutations,Medium,54.60%,No,No,No,No,Yes
+47,Permutations II,Medium,40.00%,Yes,No,No,No,No
+53,Maximum Subarray,Easy,43.30%,No,No,No,No,Yes
+55,Jump Game,Medium,31.70%,No,No,No,No,Yes
+56,Merge Intervals,Medium,35.40%,Yes,No,No,No,Yes
+70,Climbing Stairs,Easy,43.90%,Yes,No,No,No,No
+78,Subsets,Medium,52.20%,Yes,No,No,No,No
+122,Best Time to Buy and Sell Stock II,Easy,51.60%,No,No,No,No,No
+136,Single Number,Easy,59.70%,No,No,Yes,No,No
+138,Copy List with Random Pointer,Medium,26.60%,Yes,No,No,No,No
+139,Word Break,Medium,35.00%,No,No,No,No,Yes
+146,LRU Cache,Hard,25.00%,Yes,Yes,No,No,No
+149,Max Points on a Line,Hard,15.70%,Yes,No,No,No,No
+151,Reverse Words in a String,Medium,16.40%,No,No,No,No,Yes
+155,Min Stack,Easy,36.50%,Yes,No,No,No,No
+199,Binary Tree Right Side View,Medium,47.50%,No,No,No,No,Yes
+200,Number of Islands,Medium,41.10%,No,No,No,No,Yes
+203,Remove Linked List Elements,Easy,35.60%,No,No,No,No,Yes
+206,Reverse Linked List,Easy,54.00%,No,No,No,No,Yes
+207,Course Schedule,Medium,37.40%,No,No,No,No,Yes
+224,Basic Calculator,Hard,32.30%,No,No,No,No,Yes
+237,Delete Node in a Linked List,Easy,53.00%,No,No,No,No,Yes
+242,Valid Anagram,Easy,51.70%,No,No,No,No,Yes
+283,Move Zeroes,Easy,54.10%,No,No,No,No,Yes
+368,Largest Divisible Subset,Medium,34.70%,Yes,No,No,No,No
+402,Remove K Digits,Medium,26.40%,Yes,No,No,No,No
+556,Next Greater Element III,Medium,29.90%,Yes,No,No,No,No
+595,Big Countries,Easy,73.40%,Yes,No,No,No,No
+696,Count Binary Substrings,Easy,53.10%,Yes,No,No,No,No
+829,Consecutive Numbers Sum,Hard,32.70%,Yes,No,No,No,No
+929,Unique Email Addresses,Easy,72.80%,Yes,No,No,No,No

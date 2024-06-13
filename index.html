@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem List</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+</head>
+<body>
+    <h1>Problem List</h1>
+    <div>
+        <label for="company">Filter by Company:</label>
+        <select id="company">
+            <option value="All">All</option>
+            <option value="Adobe">Adobe</option>
+            <option value="Flipkart">Flipkart</option>
+            <option value="Google">Google</option>
+            <option value="Microsoft">Microsoft</option>
+            <option value="PayPal">PayPal</option>
+        </select>
+        <label for="difficulty">Filter by Difficulty:</label>
+        <select id="difficulty">
+            <option value="All">All</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+        <button id="sortRate">Sort by Acceptance Rate</button>
+        <button id="sortAlpha">Sort Alphabetically</button>
+    </div>
+    <table id="problemTable">
+        <thead>
+            <tr>
+                <th>Question Number</th>
+                <th>Question Name</th>
+                <th>Difficulty Level</th>
+                <th>Acceptance Rate</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</body>
+</html>
