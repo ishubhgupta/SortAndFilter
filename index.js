@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
             problems = results.data;
 
             if (problems.length > 0) {
+                // Sort problems by ID in ascending order by default
+                problems.sort((a, b) => parseInt(a['ID'], 10) - parseInt(b['ID'], 10));
+                filteredProblems = [...problems];
+
                 // Get unique companies
                 const companies = new Set();
                 problems.forEach(problem => {
@@ -249,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Sort problems by ID
     sortNumberButton.addEventListener('click', function () {
-        filteredProblems.sort((a, b) => numberSortOrder * (a['ID'] - b['ID']));
+        filteredProblems.sort((a, b) => numberSortOrder * (parseInt(a['ID'], 10) - parseInt(b['ID'], 10)));
         numberSortOrder *= -1;
         displayProblems(filteredProblems);
     });
