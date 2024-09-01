@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicons@2.15.1/css/devicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/simple-icons@4.17.2/icons.js"></script>
-    <title>SortAndFilter</title>
     <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="index.js" defer></script>
+    <title>SortAndFilter</title>
 </head>
 <body>
     <div class="header">
@@ -30,15 +28,8 @@
     <div class="main-content">
         <div class="sidebar">
             <h2>Companies</h2>
-            <div class="company-list">
-                <button class="company-filter active" data-company="All">All</button>
-                <button class="company-filter" data-company="Adobe">Adobe</button>
-                <button class="company-filter" data-company="Flipkart">Flipkart</button>
-                <button class="company-filter" data-company="Google">Google</button>
-                <button class="company-filter" data-company="Microsoft">Microsoft</button>
-                <button class="company-filter" data-company="PayPal">PayPal</button>
-                <button class="company-filter" data-company="JPMorgan">JPMorgan</button>
-
+            <div class="company-list" id="companyList">
+                <!-- Company buttons will be dynamically inserted here -->
             </div>
         </div>
         <div class="content">
@@ -48,7 +39,6 @@
                         <th><button id="sortNumber">Number</button></th>
                         <th><button id="sortAlpha">Title</button></th>
                         <th>Difficulty</th>
-                        <th><button id="sortRate">Acceptance</button></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +48,6 @@
         </div>
     </div>
     <button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <footer class="footer">
         <div class="footer-content">
             <span><span class="made-by">Made by </span>Shubh Gupta</span>
@@ -69,8 +58,5 @@
             </div>
         </div>
     </footer>
-    
 </body>
-
-
 </html>
