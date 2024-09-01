@@ -149,6 +149,67 @@ body {
     color: black;
 }
 
+
+/* Existing CSS */
+
+/* Add styles for search bar and pagination controls */
+#searchBar {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.pagination-btn {
+    background-color: #3e3e3e;
+    color: #c2c2c2;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination-btn:disabled {
+    background-color: #6c6c6c;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    color: white;
+}
+
+/* Set fixed height for the company list */
+.company-list {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 150px); /* Adjust this value as needed */
+    overflow-y: auto;
+}
+
+.company-filter {
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: #3e3e3e;
+    color: #c2c2c2;
+    border: none;
+    cursor: pointer;
+}
+
+.company-filter.active {
+    background-color: white;
+    color: black;
+}
+
+
 .content {
     flex: 1;
     padding: 20px;
