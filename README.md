@@ -2,6 +2,8 @@
 
 A web application to display a list of programming problems with filtering and sorting options.
 
+**Project Website:** [https://sort-and-filter.vercel.app/](https://sort-and-filter.vercel.app/)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -37,6 +39,33 @@ The **Problem List** is a web application designed to display a list of programm
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   ```bash
+   git clone https://github.com/your-username/your-repository.git
+   cd your-repository
+   ```
+
+2. **Install dependencies:**
+
+   Ensure you have all required dependencies installed. For this project, you might need to include specific setup instructions based on your development environment.
+
+3. **Open the project in your browser:**
+
+   You can open the `index.html` file directly in your browser to view the application.
+
+## Usage
+
+- **Filter Problems:** Use the filtering options to display problems based on difficulty level or company.
+- **Sort Problems:** Click on the sorting options to arrange problems by acceptance rate, problem title, or problem number.
+- **Responsive Design:** The application is designed to be responsive and should work well on various devices.
+
+## Contributing
+
+If you'd like to contribute to this project, please fork the repository and submit a pull request with your changes. Make sure to follow the coding style and include tests for new features.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+This project was created by [Shubh Gupta](https://github.com/ishubhgupta).
