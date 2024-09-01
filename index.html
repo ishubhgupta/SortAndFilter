@@ -28,8 +28,14 @@
     <div class="main-content">
         <div class="sidebar">
             <h2>Companies</h2>
+            <input type="text" id="searchBar" placeholder="Search companies...">
             <div class="company-list" id="companyList">
                 <!-- Company buttons will be dynamically inserted here -->
+            </div>
+            <div class="pagination-controls">
+                <button id="prevPage" class="pagination-btn" disabled>Previous</button>
+                <span id="pageInfo">Page 1</span>
+                <button id="nextPage" class="pagination-btn">Next</button>
             </div>
         </div>
         <div class="content">

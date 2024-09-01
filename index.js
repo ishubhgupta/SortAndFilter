@@ -6,7 +6,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortAlphaButton = document.getElementById('sortAlpha');
     const selectedDifficultiesContainer = document.getElementById('selected-difficulties');
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    const searchBar = document.getElementById('searchBar');
+    const prevPageButton = document.getElementById('prevPage');
+    const nextPageButton = document.getElementById('nextPage');
+    const pageInfo = document.getElementById('pageInfo');
 
+    const pageSize = 10; // Number of companies per page
+    let currentPage = 1;
+    let companyButtons = [];
+    let filteredCompanies = [];
     let problems = [];
     let filteredProblems = [];
     let selectedCompany = 'All';
@@ -38,18 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Companies:', companies);
 
                 // Populate company list dynamically
-                companies.forEach(company => {
-                    const button = document.createElement('button');
-                    button.classList.add('company-filter');
-                    button.textContent = company;
-                    button.dataset.company = company;
-                    button.addEventListener('click', function () {
-                        selectedCompany = this.dataset.company;
-                        console.log('Selected company:', selectedCompany);
-                        filterProblems();
-                    });
-                    companyList.appendChild(button);
-                });
+                companyButtons = Array.from(companies);
+                filteredCompanies = companyButtons;
 
                 // Add 'All' button
                 const allButton = document.createElement('button');
@@ -63,8 +61,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 companyList.prepend(allButton);
 
-                // Initialize problems
-                filteredProblems = [...problems];
+                companyButtons.forEach(company => {
+                    const button = document.createElement('button');
+                    button.classList.add('company-filter');
+                    button.textContent = company;
+                    button.dataset.company = company;
+                    button.addEventListener('click', function () {
+                        selectedCompany = this.dataset.company;
+                        console.log('Selected company:', selectedCompany);
+                        filterProblems();
+                    });
+                    companyList.appendChild(button);
+                });
+
+                updateCompanyList();
                 displayProblems(filteredProblems);
             } else {
                 console.error('No data found in CSV.');
@@ -125,7 +135,69 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log('Filtered problems:', filteredProblems);
         displayProblems(filteredProblems);
+        updateCompanyList();
     }
+
+    // Function to update company list with pagination
+    function updateCompanyList() {
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+        const companiesToDisplay = filteredCompanies.slice(start, end);
+
+        companyList.innerHTML = '';
+        companiesToDisplay.forEach(company => {
+            const button = document.createElement('button');
+            button.classList.add('company-filter');
+            button.textContent = company;
+            button.dataset.company = company;
+            button.addEventListener('click', function () {
+                selectedCompany = this.dataset.company;
+                console.log('Selected company:', selectedCompany);
+                filterProblems();
+            });
+            companyList.appendChild(button);
+        });
+
+        // Add 'All' button at the top
+        const allButton = document.createElement('button');
+        allButton.classList.add('company-filter');
+        allButton.textContent = 'All';
+        allButton.dataset.company = 'All';
+        allButton.addEventListener('click', function () {
+            selectedCompany = 'All';
+            console.log('Selected company:', selectedCompany);
+            filterProblems();
+        });
+        companyList.prepend(allButton);
+
+        // Update pagination controls
+        pageInfo.textContent = `Page ${currentPage}`;
+        prevPageButton.disabled = currentPage === 1;
+        nextPageButton.disabled = end >= filteredCompanies.length;
+    }
+
+    // Handle search input
+    searchBar.addEventListener('input', function () {
+        const searchTerm = this.value.toLowerCase();
+        filteredCompanies = companyButtons.filter(company => company.toLowerCase().includes(searchTerm));
+        currentPage = 1; // Reset to first page
+        updateCompanyList();
+    });
+
+    // Handle pagination buttons
+    prevPageButton.addEventListener('click', function () {
+        if (currentPage > 1) {
+            currentPage--;
+            updateCompanyList();
+        }
+    });
+
+    nextPageButton.addEventListener('click', function () {
+        if ((currentPage * pageSize) < filteredCompanies.length) {
+            currentPage++;
+            updateCompanyList();
+        }
+    });
 
     // Event listeners for difficulty filter
     difficultyDropdown.addEventListener('click', function (event) {
