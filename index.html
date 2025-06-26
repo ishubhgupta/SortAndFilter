@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicons@2.15.1/css/devicons.min.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="index.js" defer></script>
@@ -12,55 +14,102 @@
 </head>
 <body>
     <div class="header">
-        <h1>Problem List</h1>
+        <h1>SortAndFilter</h1>
         <div class="filters">
             <div id="selected-difficulties" class="selected-difficulties"></div>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
             <div class="dropdown">
-                <button class="dropbtn" id="difficultyDropdownBtn">Difficulty</button>
+                <button class="dropbtn" id="difficultyDropdownBtn">
+                    <i class="fas fa-filter"></i> Difficulty
+                </button>
                 <div class="dropdown-content" id="difficultyDropdown">
-                    <a href="#" data-value="Easy" class="easy">Easy</a>
-                    <a href="#" data-value="Medium" class="medium">Medium</a>
-                    <a href="#" data-value="Hard" class="hard">Hard</a>
+                    <a href="#" data-value="Easy" class="easy">
+                        <i class="fas fa-circle"></i> Easy
+                    </a>
+                    <a href="#" data-value="Medium" class="medium">
+                        <i class="fas fa-circle"></i> Medium
+                    </a>
+                    <a href="#" data-value="Hard" class="hard">
+                        <i class="fas fa-circle"></i> Hard
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="main-content">
         <div class="sidebar">
-            <h2>Companies</h2>
-            <input type="text" id="searchBar" placeholder="Search companies...">
+            <h2>📊 Companies</h2>
+            <input type="text" id="searchBar" placeholder="🔍 Search companies...">
             <div class="company-list" id="companyList">
                 <!-- Company buttons will be dynamically inserted here -->
             </div>
             <div class="pagination-controls">
-                <button id="prevPage" class="pagination-btn" disabled>Previous</button>
+                <button id="prevPage" class="pagination-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
                 <span id="pageInfo">Page 1</span>
-                <button id="nextPage" class="pagination-btn">Next</button>
+                <button id="nextPage" class="pagination-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
         <div class="content">
+            <div class="table-header">
+                <h2>📋 Problems</h2>
+                <div class="table-pagination-controls">
+                    <button id="prevTablePage" class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="tablePageInfo">Page 1 of 1</span>
+                    <button id="nextTablePage" class="pagination-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
             <table id="problemTable">
                 <thead>
                     <tr>
-                        <th><button id="sortNumber">Number</button></th>
-                        <th><button id="sortAlpha">Title</button></th>
-                        <th>Difficulty</th>
+                        <th><button id="sortNumber">📊 Number</button></th>
+                        <th><button id="sortAlpha">📝 Title</button></th>
+                        <th>⚡ Difficulty</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Data will be inserted here dynamically -->
                 </tbody>
             </table>
+            <div class="table-footer">
+                <div class="results-info">
+                    <span id="resultsInfo">Showing 0 problems</span>
+                </div>
+                <div class="table-pagination-controls">
+                    <button id="prevTablePageBottom" class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="tablePageInfoBottom">Page 1 of 1</span>
+                    <button id="nextTablePageBottom" class="pagination-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
     <footer class="footer">
         <div class="footer-content">
-            <span><span class="made-by">Made by </span>Shubh Gupta</span>
+            <span><span class="made-by">Crafted with ❤️ by </span>Shubh Gupta</span>
             <div class="social-icons">
-                <a href="https://instagram.com" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://linkedin.com" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://instagram.com" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://linkedin.com" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com" class="social-link" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
             </div>
         </div>
     </footer>

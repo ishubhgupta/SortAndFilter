@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Theme management
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+    
+    function updateThemeIcon(theme) {
+        if (theme === 'dark') {
+            themeIcon.className = 'fas fa-sun';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+        }
+    }
+    
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+
+    // Main application variables
     const tableBody = document.querySelector('#problemTable tbody');
     const companyList = document.getElementById('companyList');
     const difficultyDropdown = document.getElementById('difficultyDropdown');
@@ -10,13 +37,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevPageButton = document.getElementById('prevPage');
     const nextPageButton = document.getElementById('nextPage');
     const pageInfo = document.getElementById('pageInfo');
+    
+    // Table pagination elements
+    const prevTablePageButton = document.getElementById('prevTablePage');
+    const nextTablePageButton = document.getElementById('nextTablePage');
+    const prevTablePageBottomButton = document.getElementById('prevTablePageBottom');
+    const nextTablePageBottomButton = document.getElementById('nextTablePageBottom');
+    const tablePageInfo = document.getElementById('tablePageInfo');
+    const tablePageInfoBottom = document.getElementById('tablePageInfoBottom');
+    const resultsInfo = document.getElementById('resultsInfo');
 
     const pageSize = 10; // Number of companies per page
+    const tablePageSize = 15; // Number of problems per page
     let currentPage = 1;
+    let currentTablePage = 1;
     let companyButtons = [];
     let filteredCompanies = [];
     let problems = [];
     let filteredProblems = [];
+    let displayedProblems = [];
     let selectedCompany = 'All';
     let selectedDifficulties = new Set();
     let alphaSortOrder = 1;  // 1 for ascending, -1 for descending
@@ -89,10 +128,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Function to display problems in the table
+    // Function to display problems in the table with pagination
     function displayProblems(data) {
+        const startIndex = (currentTablePage - 1) * tablePageSize;
+        const endIndex = startIndex + tablePageSize;
+        const paginatedData = data.slice(startIndex, endIndex);
+        
         tableBody.innerHTML = '';
-        data.forEach(problem => {
+        paginatedData.forEach(problem => {
             const row = document.createElement('tr');
             const leetCodeURL = `https://leetcode.com/problems/${problem['Title'].toLowerCase().replace(/ /g, '-')}/description/`;
 
@@ -119,7 +162,43 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             tableBody.appendChild(row);
         });
-        console.log('Problems displayed:', data);
+        
+        displayedProblems = paginatedData;
+        updateTablePagination(data.length);
+        updateResultsInfo(data.length);
+        
+        console.log('Problems displayed:', paginatedData);
+    }
+
+    // Function to update table pagination controls
+    function updateTablePagination(totalProblems) {
+        const totalPages = Math.ceil(totalProblems / tablePageSize);
+        
+        // Update page info for both top and bottom controls
+        const pageText = `Page ${currentTablePage} of ${totalPages}`;
+        tablePageInfo.textContent = pageText;
+        tablePageInfoBottom.textContent = pageText;
+        
+        // Update button states
+        const isFirstPage = currentTablePage === 1;
+        const isLastPage = currentTablePage === totalPages || totalPages === 0;
+        
+        prevTablePageButton.disabled = isFirstPage;
+        nextTablePageButton.disabled = isLastPage;
+        prevTablePageBottomButton.disabled = isFirstPage;
+        nextTablePageBottomButton.disabled = isLastPage;
+    }
+
+    // Function to update results info
+    function updateResultsInfo(totalProblems) {
+        const startIndex = (currentTablePage - 1) * tablePageSize + 1;
+        const endIndex = Math.min(currentTablePage * tablePageSize, totalProblems);
+        
+        if (totalProblems === 0) {
+            resultsInfo.textContent = 'No problems found';
+        } else {
+            resultsInfo.textContent = `Showing ${startIndex}-${endIndex} of ${totalProblems} problems`;
+        }
     }
 
     // Function to filter problems based on company and difficulty
@@ -137,6 +216,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
+        // Reset table pagination when filters change
+        currentTablePage = 1;
+        
         console.log('Filtered problems:', filteredProblems);
         displayProblems(filteredProblems);
         updateCompanyList();
@@ -203,6 +285,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Handle table pagination buttons
+    prevTablePageButton.addEventListener('click', function () {
+        if (currentTablePage > 1) {
+            currentTablePage--;
+            displayProblems(filteredProblems);
+        }
+    });
+
+    nextTablePageButton.addEventListener('click', function () {
+        const totalPages = Math.ceil(filteredProblems.length / tablePageSize);
+        if (currentTablePage < totalPages) {
+            currentTablePage++;
+            displayProblems(filteredProblems);
+        }
+    });
+
+    prevTablePageBottomButton.addEventListener('click', function () {
+        if (currentTablePage > 1) {
+            currentTablePage--;
+            displayProblems(filteredProblems);
+        }
+    });
+
+    nextTablePageBottomButton.addEventListener('click', function () {
+        const totalPages = Math.ceil(filteredProblems.length / tablePageSize);
+        if (currentTablePage < totalPages) {
+            currentTablePage++;
+            displayProblems(filteredProblems);
+        }
+    });
+
     // Event listeners for difficulty filter
     difficultyDropdown.addEventListener('click', function (event) {
         const difficulty = event.target.dataset.value;
@@ -255,6 +368,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sortNumberButton.addEventListener('click', function () {
         filteredProblems.sort((a, b) => numberSortOrder * (parseInt(a['ID'], 10) - parseInt(b['ID'], 10)));
         numberSortOrder *= -1;
+        currentTablePage = 1; // Reset to first page when sorting
         displayProblems(filteredProblems);
     });
 
@@ -262,15 +376,16 @@ document.addEventListener('DOMContentLoaded', function () {
     sortAlphaButton.addEventListener('click', function () {
         filteredProblems.sort((a, b) => alphaSortOrder * a['Title'].localeCompare(b['Title']));
         alphaSortOrder *= -1;
+        currentTablePage = 1; // Reset to first page when sorting
         displayProblems(filteredProblems);
     });
 
     // Scroll to top button functionality
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
-            scrollToTopBtn.style.display = 'block';
+            scrollToTopBtn.classList.add('show');
         } else {
-            scrollToTopBtn.style.display = 'none';
+            scrollToTopBtn.classList.remove('show');
         }
     });
 
